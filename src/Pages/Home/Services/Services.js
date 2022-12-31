@@ -1,0 +1,31 @@
+import React, { useEffect, useState } from "react";
+import ServiceCard from "./ServiceCard";
+
+const Services = () => {
+	const [services, setService] = useState([]);
+	useEffect(() => {
+		fetch("https://genius-car-server-eta-one.vercel.app/services")
+			.then((res) => res.json())
+			.then((data) => setService(data));
+	}, []);
+	return (
+		<div>
+			<div className="text-center">
+				<p className="text-2xl text-orange-600 font-bold">Services</p>
+				<h1 className="text-5xl font-semibold py-5">Our Service Area</h1>
+				<p className="py-5">
+					the majority have suffered alteration in some form, by injected
+					humour, <br /> or randomised words which don't look even slightly
+					believable.{" "}
+				</p>
+			</div>
+			<div className="grid gap-6 py-10 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+				{services.map((service) => (
+					<ServiceCard key={service._id} service={service}></ServiceCard>
+				))}
+			</div>
+		</div>
+	);
+};
+
+export default Services;
